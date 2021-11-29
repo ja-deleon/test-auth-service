@@ -1,0 +1,117 @@
+POST
+/api/signup/
+REQUEST/RESPONSE
+{
+    "username": "michaelscott",
+    "email": "michaelscott@test.com",
+    "password": "1234",
+    "role_id": "2"
+}
+
+POST
+/api/roles/
+REQUEST/RESPONSE
+{
+    "name": "custom_user",
+    "desc": "custom user role",
+    "permissions": "0,1,2",
+    "id": "4"
+}
+
+POST
+/api/permissions/
+REQUEST/RESPONSE
+{
+    "id": "3",
+    "name": "custom_permission",
+    "desc": "desc for custom permission"
+}
+
+POST
+/api/users/:id/roles
+REQUEST
+{
+    "username": "michaelscott",
+    "email": "michaelscott@test.com",
+    "password": "1234",
+    "role_id": "1,2,5"
+}
+RESPONSE
+{
+    "data": {
+        "username": "michaelscott",
+        "email": "michaelscott@test.com",
+        "password": "1234",
+        "role_id": "1,2,5"
+    },
+    "roles": [
+        {
+            "id": 1,
+            "name": "manager",
+            "desc": "can view and update",
+            "permissions": "0,1"
+        },
+        {
+            "id": 2,
+            "name": "admin",
+            "desc": "can view/update/delete",
+            "permissions": "0,1,2"
+        },
+        {
+            "id": 5,
+            "name": "test_role",
+            "desc": "test role",
+            "permissions": "0"
+        }
+    ]
+}
+
+POST
+/api/users/:id/permissions
+REQUEST
+{
+    "ids": "0,1,2,3,4,5"
+}
+RESPONSE
+{
+    "data": {
+        "username": "willsmith",
+        "email": "willsmith@test.com",
+        "password": "1234",
+        "role_id": "2"
+    },
+    "with_permissions": [
+        {
+            "id": "0",
+            "name": "read",
+            "desc": "view users/roles/permission"
+        },
+        {
+            "id": "1",
+            "name": "update",
+            "desc": "edit or create user/role/permission"
+        },
+        {
+            "id": "2",
+            "name": "delete",
+            "desc": "delete user/role/permission"
+        }
+    ],
+    "without_permissions": [
+        {
+            "id": "3",
+            "name": "custom_permission",
+            "desc": "desc for custom permission"
+        },
+        {
+            "id": "4",
+            "name": "test_permission",
+            "desc": "desc for test permission"
+        }
+    ],
+    "no_such_permission": [
+        {
+            "id": "5"
+        }
+    ]
+}

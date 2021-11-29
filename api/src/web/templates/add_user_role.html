@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="../users">Show all users</a></li>
+        <li><a href="../roles">Show available roles</a></li>
+        <li><a href="../permissions">Show available permissions</a></li>
+        <li><a href="../create_role_view">Create new role</a></li>
+    </ul>
+</nav>
+{% if not obj.username is None %}
+    <h1>Add Role for {{ obj.username }}</h1>
+{% endif %}
+
+{% if not obj.data.username is None %}
+    <h1>Roles added for {{ obj.data.username }}</h1>
+{% endif %}
+
+<form method="POST" action="../add_role/"> {% csrf_token %}
+    <input type="text" name="role_id" placeholder="Role IDs"/>
+    <input type="hidden" name="id" value="{{ obj.id }}" />
+    <input type="hidden" name="username" value="{{ obj.username }}" />
+    <input type="submit" value="Save"/>
+</form>
+{% endblock %}

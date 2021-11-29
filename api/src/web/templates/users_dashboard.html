@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="../users">Show all users</a></li>
+        <li><a href="../roles">Show available roles</a></li>
+        <li><a href="../permissions">Show available permissions</a></li>
+    </ul>
+</nav>
+
+<h1>All Users</h1>
+
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role IDs</th>
+        <th>View Role</th>
+        <th>Add Role</th>
+    </tr>
+    {% for user in obj.data %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role_id }}</td>
+            <td><a href="../view_role?id={{user.id}}">View role</a></td>
+            <td><a href="../add_role_view?id={{user.id}}">Add role</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

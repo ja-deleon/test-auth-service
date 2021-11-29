@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav>
+        <ul>
+            <li><a href="../">Logout</a></li>
+        </ul>
+    </nav>
+
+    <h1>{% if obj.logged_in %}
+            Welcome {{ obj.data.username|upper }}!
+        {% else %}
+            {{ obj }}
+        {% endif %}
+    </h1>
+
+    {% if obj.logged_in %}
+        <nav>
+            <ul>
+                <li><a href="../users">Show all users</a></li>
+                <li><a href="../roles">Show available roles</a></li>
+                <li><a href="../permissions">Show available permissions</a></li>
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

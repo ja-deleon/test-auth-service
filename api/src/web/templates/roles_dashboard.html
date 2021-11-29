@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="../users">Show all users</a></li>
+        <li><a href="../roles">Show available roles</a></li>
+        <li><a href="../permissions">Show available permissions</a></li>
+        <li><a href="../create_role_view">Create new role</a></li>
+    </ul>
+</nav>
+
+<h1>{% if obj.data is None%}
+        All Roles
+    {% else %}
+        Roles for {{ obj.data.username }}
+    {% endif %}
+</h1>
+
+<table>
+    <tr>
+        <th>Role ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Permission IDs</th>
+    </tr>
+    {% for role in obj.roles %}
+        <tr>
+            <td>{{ role.id }}</td>
+            <td>{{ role.name }}</td>
+            <td>{{ role.desc }}</td>
+            <td>{{ role.permissions }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

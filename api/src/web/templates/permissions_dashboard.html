@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="../users">Show all users</a></li>
+        <li><a href="../roles">Show available roles</a></li>
+        <li><a href="../permissions">Show available permissions</a></li>
+        <li><a href="../create_permission_view">Create new permission</a></li>
+    </ul>
+</nav>
+
+<h1>All Permissions</h1>
+
+<table>
+    <tr>
+        <th>Permission ID</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    {% for permission in obj.permissions %}
+        <tr>
+            <td>{{ permission.id }}</td>
+            <td>{{ permission.name }}</td>
+            <td>{{ permission.desc }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="../users">Show all users</a></li>
+        <li><a href="../roles">Show available roles</a></li>
+        <li><a href="../permissions">Show available permissions</a></li>
+        <li><a href="../create_role_view">Create new role</a></li>
+    </ul>
+</nav>
+
+<h1>Create New Role</h1>
+
+{% if not obj.name is None %}
+    <p>{{ obj.name }} added</p>
+{% endif %}
+
+<form method="POST" action="../create_role/"> {% csrf_token %}
+    <input type="text" name="id" placeholder="Role ID"/>
+    <input type="text" name="name" placeholder="Role Name"/>
+    <input type="text" name="desc" placeholder="Description"/>
+    <input type="text" name="permissions" placeholder="Permission IDs" />
+    <input type="submit" value="Save"/>
+</form>
+{% endblock %}

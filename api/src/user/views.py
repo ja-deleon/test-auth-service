@@ -28,43 +28,43 @@ def get_user(request, id):
     except ObjectDoesNotExist:
         raise IndexError("Index out of bounds")
 
-#sign up
-@api_view(['POST'])
-def create_user(request):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        try:
-            serializer.save()
-        except IntegrityError:
-            data = serializer.data
-            if User.objects.filter(username=data.get("username")).exists():
-                return Response("username already taken")
-            elif User.objects.filter(email=data.get("email")).exists():
-                return Response("email already in use")
+# #sign up
+# @api_view(['POST'])
+# def create_user(request):
+#     serializer = UserSerializer(data=request.data)
+#     if serializer.is_valid():
+#         try:
+#             serializer.save()
+#         except IntegrityError:
+#             data = serializer.data
+#             if User.objects.filter(username=data.get("username")).exists():
+#                 return Response("username already taken")
+#             elif User.objects.filter(email=data.get("email")).exists():
+#                 return Response("email already in use")
+#
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#login
-@api_view(['POST'])
-def login_user(request):
-    serializer = serializers.Serializer(data=request.data)
-    if serializer.is_valid():
-        data = request.data
-        if User.objects.filter(username=data.get("login_name")).exists():
-            user_obj = User.objects.get(username=data.get("login_name"))
-            user_data = UserSerializer(user_obj).data
-            login_method = "username"
-            if data.get("password") == user_obj.password:
-                return Response({"logged_in": True, "method": login_method})
-        elif User.objects.filter(email=data.get("login_name")).exists():
-            user_obj = User.objects.get(email=data.get("login_name"))
-            user_data = UserSerializer(user_obj).data
-            login_method = "email"
-            if data.get("password") == user_obj.password:
-                return Response({"logged_in": True, "method": login_method, "data": user_data})
-        return Response("Invalid credentials")
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# # login
+# @api_view(['POST'])
+# def login_user(request):
+#     serializer = serializers.Serializer(data=request.data)
+#     if serializer.is_valid():
+#         data = request.data
+#         if User.objects.filter(username=data.get("login_name")).exists():
+#             user_obj = User.objects.get(username=data.get("login_name"))
+#             user_data = UserSerializer(user_obj).data
+#             login_method = "username"
+#             if data.get("password") == user_obj.password:
+#                 return Response({"logged_in": True, "method": login_method})
+#         elif User.objects.filter(email=data.get("login_name")).exists():
+#             user_obj = User.objects.get(email=data.get("login_name"))
+#             user_data = UserSerializer(user_obj).data
+#             login_method = "email"
+#             if data.get("password") == user_obj.password:
+#                 return Response({"logged_in": True, "method": login_method, "data": user_data})
+#         return Response("Invalid credentials")
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #modify user
 @api_view(['POST'])
